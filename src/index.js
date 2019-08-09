@@ -11,13 +11,10 @@ var car = JSON.parse(localStorage.getItem('car') || '[]')
 let store = new Vuex.Store({
   //大家可以把state想象成组件中的data 专门用来存储数据的
   state: {
-    car: car //将购物车中的商品数据 用一个数组存储起来  在car 数组中 存储一些商品的
-    //对象 咋们可以暂时将 商品对象 设计成这个样子{id:商品id，count:'要购买的数量'，price:'商品的单价'，selected:false}
+    car: car,//{id:商品id，count:'要购买的数量'，price:'商品的单价'，selected:false}
+    userInfo: null
   },
   mutations: {
-    //注意：如果要操作store中的state值 只能通过调用 mutations提供的方法 才能操作
-    //对应数据，不推荐直接操作state 中的数据，因为万一导致了数据的紊乱 不能快速定位到错误的原因
-    //因为 每个组件 都可能有 操作数据的方法
     addToCar(state, goodsinfo) {
       //点击加入购物车 把商品信息 添加到 state 中的 car上
       //分析：
@@ -70,6 +67,9 @@ let store = new Vuex.Store({
       })
       //当更新 car之后 把car数组 存储到本地 localstorage 中
       localStorage.setItem('car', JSON.stringify(state.car))
+    },
+    setUserInfo(state,info){
+      state.userInfo = info
     }
 
     //注意：如果组件想要调用mutations中的方法 只能使用 this.$store.commite('方法名')
@@ -114,6 +114,9 @@ let store = new Vuex.Store({
       return o
 
 
+    },
+    getUserInfo(state){
+      return state.userInfo
     }
 
     //经过 回顾对比 getters 中的方法 和组件中的过滤器比较类似 因为过滤器和getters都没有修改原数据

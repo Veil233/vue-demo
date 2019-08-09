@@ -4,8 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const { VueLoaderPlugin } = require('vue-loader');
 
-
-
 //这个配置文件 其实就是一个js文件通过node 中的操作 向外暴露了一个配置对象
 module.exports = {
     

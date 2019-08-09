@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <mt-header fixed title="李津的Vue小项目">
+        <mt-header fixed title="vue-demo">
 			 <span slot="left" @click="goBack" v-show="flag">
 				<mt-button icon="back">返回</mt-button>
 			</span>
@@ -19,7 +19,7 @@
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</router-link>
-			<router-link class="mui-tab-item-lijin" to="/member">
+			<router-link class="mui-tab-item-lijin" to="/about">
 				<span class="mui-icon mui-icon-search"></span>
 				<span class="mui-tab-label">关于</span>
 			</router-link>
@@ -29,10 +29,10 @@
 				</span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
-			<a class="mui-tab-item-lijin" href="http://www.cqbiaobai.top/zj">
+			<router-link class="mui-tab-item-lijin" to="/member">
 				<span class="mui-icon mui-icon-contact"></span>
 				<span class="mui-tab-label">登录</span>
-			</a>
+			</router-link>
 		</nav>
         <!-- 中间 路由区 -->
         
