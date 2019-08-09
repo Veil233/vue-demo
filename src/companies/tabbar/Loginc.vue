@@ -34,7 +34,7 @@
           @click="login"
         >登录</button>
         <div class="link-area">
-          <router-link to="/logon/register" id="reg">注册账号</router-link>
+          <router-link to="/login/register" id="reg">注册账号</router-link>
         </div>
       </div>
       <div class="mui-content-padded oauth-area"></div>
@@ -54,10 +54,7 @@ export default {
   },
   methods: {
     login() {
-      sessionStorage.setItem("user", {
-        name: this.name,
-        pwd: this.pwd
-      });
+      sessionStorage.setItem("username", this.user);
       // this.$router.push({
       //   path: "/member"
       // });

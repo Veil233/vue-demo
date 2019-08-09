@@ -1,46 +1,104 @@
 <template>
   <div>
     <div class="mui-content">
-			<form class="mui-input-group">
-				<div class="mui-input-row">
-					<label>账号</label>
-					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
-				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
-				</div>
-				<div class="mui-input-row">
-					<label>确认</label>
-					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
-				</div>
-				<div class="mui-input-row">
-					<label>邮箱</label>
-					<input id='email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
-				</div>
-			</form>
-			<div class="mui-content-padded">
-				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
-			</div>
-			<div class="mui-content-padded">
-				<p>注册真实可用，注册成功后的用户可用于登录，但是示例程序并未和服务端交互，用户相关数据仅存储于本地。</p>
-			</div>
-		</div>
+      <form class="mui-input-group">
+        <div class="mui-input-row">
+          <label>账号</label>
+          <input
+            id="account"
+            type="text"
+            class="mui-input-clear mui-input"
+            placeholder="请输入账号"
+            v-model="username"
+          />
+        </div>
+        <div class="mui-input-row">
+          <label>密码</label>
+          <input
+            id="password"
+            type="password"
+            class="mui-input-clear mui-input"
+            placeholder="请输入密码"
+            v-model="password"
+          />
+        </div>
+        <div class="mui-input-row">
+          <label>确认密码</label>
+          <input
+            id="password_confirm"
+            type="password"
+            class="mui-input-clear mui-input"
+            placeholder="请确认密码"
+            v-model="re_password"
+          />
+        </div>
+        <div class="mui-input-row">
+          <label>昵称</label>
+          <input
+            id="account"
+            type="text"
+            class="mui-input-clear mui-input"
+            placeholder="请输入昵称"
+            v-model="nickname"
+          />
+        </div>
+      </form>
+      <div class="mui-content-padded">
+        <button id="reg" class="mui-btn mui-btn-block mui-btn-primary" @click="register">注册</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { Toast } from "mint-ui";
 export default {
-  data() { 
+  data() {
     return {
-
+      username: "",
+      password: "",
+      re_password: "",
+      nickname: ""
+    };
+  },
+  methods: {
+    register() {
+      if (this.password != this.re_password) {
+        Toast("两次填写的密码不一致");
+      } else if (
+        this.username == "" ||
+        this.password == "" ||
+        this.re_password == "" ||
+        this.nickname == ""
+      ) {
+        Toast("请填写所有选项");
+      } else {
+        this.$http
+          .post("http://127.0.0.1:5000/register", {
+            username: this.username,
+            password: this.password,
+            nickname: this.nickname
+          })
+          .then(result => {
+            if (result.body.status === "1") {
+              console.log("注册成功");
+              sessionStorage.setItem("user", {
+                name: this.username,
+                pwd: this.password
+              });
+              this.$router.push({
+                path: "/member"
+              });
+            }
+          });
+      }
     }
   }
- }
+};
 </script>
 
 <style lang="scss" scoped>
-.mui-content{
+.mui-content {
   background-color: white;
 }
 .area {
@@ -50,15 +108,15 @@ export default {
   margin-top: 20px;
 }
 .mui-input-group label {
-  width: 22%;
+  width: 32%;
 }
-.mui-input-row label~input,
-.mui-input-row label~select,
-.mui-input-row label~textarea {
-  width: 78%;
+.mui-input-row label ~ input,
+.mui-input-row label ~ select,
+.mui-input-row label ~ textarea {
+  width: 68%;
 }
-.mui-checkbox input[type=checkbox],
-.mui-radio input[type=radio] {
+.mui-checkbox input[type="checkbox"],
+.mui-radio input[type="radio"] {
   top: 6px;
 }
 .mui-content-padded {

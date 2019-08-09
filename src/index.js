@@ -72,7 +72,7 @@ let store = new Vuex.Store({
       state.userInfo = info
     }
 
-    //注意：如果组件想要调用mutations中的方法 只能使用 this.$store.commite('方法名')
+    //注意：如果组件想要调用mutations中的方法 只能使用 this.$store.commit('方法名')
     //这种调用 mutations 方法的格式 和 this.$emit('方法名')
   },
   getters: {
@@ -149,7 +149,10 @@ import MintUI from 'mint-ui'
 Vue.use(MintUI)
 import 'mint-ui/lib/style.css'
 
-import './lib/mui/css/mui.css' //引入 mui的 css
+
+import mui from "./lib/mui/js/mui.min.js"
+Vue.prototype.mui = mui
+import './lib/mui/css/mui.min.css' //引入 mui的 css
 import './lib/mui/css/icons-extra.css' //引入 mui 扩展图标
 
 //安装图片预览插件

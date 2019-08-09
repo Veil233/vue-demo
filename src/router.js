@@ -54,7 +54,7 @@ var router = new VueRouter({
             component: LoginContainer
         },
         {
-            path: '/logon/register',
+            path: '/login/register',
             component: Register
         },
         {
