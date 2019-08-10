@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.auth) {
         //用户点击博客链接 用户未登录 需要登录判断
         //准备跳转登录页面
-        if (sessionStorage.getItem('user')) {
+        if (sessionStorage.getItem('username')) {
             //用户已经登录 放行
             next()
         } else {

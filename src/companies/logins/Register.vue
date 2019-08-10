@@ -82,10 +82,8 @@ export default {
           .then(result => {
             if (result.body.status === "1") {
               console.log("注册成功");
-              sessionStorage.setItem("user", {
-                name: this.username,
-                pwd: this.password
-              });
+              this.$store.commit("setUserInfo", result.body.userInfo);
+              sessionStorage.setItem("username", this.username);
               this.$router.push({
                 path: "/member"
               });

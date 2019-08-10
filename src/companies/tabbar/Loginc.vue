@@ -54,15 +54,12 @@ export default {
   },
   methods: {
     login() {
-      sessionStorage.setItem("username", this.user);
-      // this.$router.push({
-      //   path: "/member"
-      // });
       this.$http
         .post("http://127.0.0.1:5000/login", { user: this.user, pwd: this.pwd })
         .then(result => {
           if (result.body.status === "1") {
-            this.$store.commit("setUserInfo", result.body.userInfo);
+            sessionStorage.setItem("username", this.user);
+            this.$store.commit("setUserInfo", result.body.userInfo[0]);
             this.$router.push({
               path: "/member"
             });

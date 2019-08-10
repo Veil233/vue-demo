@@ -5,11 +5,11 @@
       <img src="../../images/head.png" alt />
     </div>
     <div class="userName">
-      <p>{{ getUserInfo[0].nickname }}</p>
+      <p>{{$store.getters.getUserInfo.username}}</p>
     </div>
     <div class="count">
       <p>余额(元)</p>
-      <p>{{ getUserInfo[0].balance }}</p>
+      <p>{{$store.getters.getUserInfo.balance}}</p>
       <button type="button" class="mui-btn mui-btn-outlined" @click="save">存款</button>
       <button type="button" class="mui-btn mui-btn-outlined" @click="draw">取款</button>
     </div>
@@ -18,47 +18,82 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui'
+import { Toast } from "mint-ui";
 export default {
   data() {
-    return {
-      
-    };
+    return {};
   },
   methods: {
     clear() {
-      localStorage.removeItem("user");
+      sessionStorage.clear();
       this.$router.push({
         path: "/login"
       });
     },
     save() {
-      var _id = this.$store.state.userInfo[0]._id
-      var balance = Number(this.$store.state.userInfo[0].balance)
-      this.mui.prompt("请输入存款金额", "", "", new Array("确定", "取消"), Reason => {
-        if (Reason.index == 0) {
-          balance += Number(Reason.value)
-          this.$http
-            .post("http://127.0.0.1:5000/add", {
-              id: _id,
-              add: balance
-            })
-            .then(result => {
-              if (result.body.status === "1") {
-                Toast("修改成功");
-                console.log(this.$store.state.userInfo[0])
-                this.$store.commit('setUserInfo',result.body.userInfo);
-                
-              } else if (result.body.status === "-1") {
-                Toast("修改失败");
-              }
-            });
-        }else{
-
+      var _id = this.$store.state.userInfo._id;
+      var balance = Number(this.$store.state.userInfo.balance);
+      this.mui.prompt(
+        "请输入存款金额",
+        "",
+        "",
+        new Array("确定", "取消"),
+        Reason => {
+          if (Reason.index == 0) {
+            Reason.value = Number(Reason.value);
+            if (isNaN(Reason.value) || !Reason.value) {
+              return Toast("请输入合法的数字");
+            }
+            balance += Reason.value;
+            this.$http
+              .post("http://127.0.0.1:5000/add", {
+                id: _id,
+                add: balance
+              })
+              .then(result => {
+                if (result.body.status === "1") {
+                  Toast("修改成功");
+                  this.$store.commit("setUserInfo", result.body.userInfo);
+                } else if (result.body.status === "-1") {
+                  Toast("修改失败");
+                }
+              });
+          }
         }
-      });
+      );
     },
-    draw() {}
+    draw() {
+      var _id = this.$store.state.userInfo._id;
+      var balance = Number(this.$store.state.userInfo.balance);
+      this.mui.prompt(
+        "请输入存款金额",
+        "",
+        "",
+        new Array("确定", "取消"),
+        Reason => {
+          if (Reason.index == 0) {
+            Reason.value = Number(Reason.value);
+            if (isNaN(Reason.value) || !Reason.value) {
+              return Toast("请输入合法的数字");
+            }
+            balance -= Reason.value;
+            this.$http
+              .post("http://127.0.0.1:5000/add", {
+                id: _id,
+                add: balance
+              })
+              .then(result => {
+                if (result.body.status === "1") {
+                  Toast("修改成功");
+                  this.$store.commit("setUserInfo", result.body.userInfo);
+                } else if (result.body.status === "-1") {
+                  Toast("修改失败");
+                }
+              });
+          }
+        }
+      );
+    }
   },
   computed: {
     getUserInfo() {
