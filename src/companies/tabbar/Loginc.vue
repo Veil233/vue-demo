@@ -55,7 +55,7 @@ export default {
   methods: {
     login() {
       this.$http
-        .post("http://127.0.0.1:5000/login", { user: this.user, pwd: this.pwd })
+        .post("http://47.102.105.87:5001/login", { user: this.user, pwd: this.pwd })
         .then(result => {
           if (result.body.status === "1") {
             sessionStorage.setItem("username", this.user);

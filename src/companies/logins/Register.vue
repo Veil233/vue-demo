@@ -74,7 +74,7 @@ export default {
         Toast("请填写所有选项");
       } else {
         this.$http
-          .post("http://127.0.0.1:5000/register", {
+          .post("http://47.102.105.87:5001/register", {
             username: this.username,
             password: this.password,
             nickname: this.nickname

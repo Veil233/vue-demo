@@ -47,7 +47,7 @@ export default {
             }
             balance += Reason.value;
             this.$http
-              .post("http://127.0.0.1:5000/add", {
+              .post("http://47.102.105.87:5001/add", {
                 id: _id,
                 add: balance
               })
@@ -80,7 +80,7 @@ export default {
             }
             balance -= Reason.value;
             this.$http
-              .post("http://127.0.0.1:5000/add", {
+              .post("http://47.102.105.87:5001/add", {
                 id: _id,
                 add: balance
               })
