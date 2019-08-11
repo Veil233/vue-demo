@@ -83,12 +83,6 @@ var router = new VueRouter({
             component: GoodsComment,
             name: 'goodscomment'
         },
-
-
-
-
-
-
     ],
     linkActiveClass: 'mui-active' //覆盖默认的路由高亮的类 默认的类叫做 router-link-active
 })

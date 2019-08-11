@@ -5,11 +5,11 @@
       <img src="../../images/head.png" alt />
     </div>
     <div class="userName">
-      <p>{{$store.getters.getUserInfo.username}}</p>
+      <p>{{ $store.getters.getUserInfo.username }}</p>
     </div>
     <div class="count">
       <p>余额(元)</p>
-      <p>{{$store.getters.getUserInfo.balance}}</p>
+      <p>{{ $store.getters.getUserInfo.balance }}</p>
       <button type="button" class="mui-btn mui-btn-outlined" @click="save">存款</button>
       <button type="button" class="mui-btn mui-btn-outlined" @click="draw">取款</button>
     </div>
@@ -30,6 +30,7 @@ export default {
         path: "/login"
       });
     },
+    //存款
     save() {
       var _id = this.$store.state.userInfo._id;
       var balance = Number(this.$store.state.userInfo.balance);
@@ -62,6 +63,7 @@ export default {
         }
       );
     },
+    //取款
     draw() {
       var _id = this.$store.state.userInfo._id;
       var balance = Number(this.$store.state.userInfo.balance);

@@ -27,7 +27,7 @@
                     <img src="../../images/menu5.png" alt="">
                     <div class="mui-media-body">视频专区</div></a></li>
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-                <router-link to="/member">
+                <router-link to="/about">
                     <img src="../../images/menu6.png" alt="">
                     <div class="mui-media-body">联系我们</div>
                 </router-link>

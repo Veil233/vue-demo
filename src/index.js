@@ -9,9 +9,8 @@ Vue.use(Vuex) //注册vuex
 var car = JSON.parse(localStorage.getItem('car') || '[]')
 
 let store = new Vuex.Store({
-  //大家可以把state想象成组件中的data 专门用来存储数据的
   state: {
-    car: car,//{id:商品id，count:'要购买的数量'，price:'商品的单价'，selected:false}
+    car: car,//[{id:商品id，count:'要购买的数量'，price:'商品的单价'，selected:false}]
     userInfo: null
   },
   mutations: {
@@ -70,14 +69,19 @@ let store = new Vuex.Store({
     },
     setUserInfo(state,info){
       state.userInfo = info
+    },
+    removeCar(state){
+      state.car.forEach(i=>{
+        if(i.selected == true){
+          state.car.splice(i,1)
+        }
+      })
+      localStorage.setItem('car', JSON.stringify(state.car))
     }
-
     //注意：如果组件想要调用mutations中的方法 只能使用 this.$store.commit('方法名')
     //这种调用 mutations 方法的格式 和 this.$emit('方法名')
   },
   getters: {
-    //注意 这里的getters 只负责 对外提供 数据 不负责 修改数据 如果需要修改 state中的数据，
-    //请去 找mutations
     getAllCount: function (state) {
       var c = 0;
       state.car.forEach(item => {
@@ -112,11 +116,18 @@ let store = new Vuex.Store({
 
       })
       return o
-
-
     },
     getUserInfo(state){
       return state.userInfo
+    },
+    getSelectedId(state){
+      var arr = []
+      state.car.forEach(item => {
+        if (item.selected == true){
+          arr.push(item.id)
+        }
+      })
+      return arr
     }
 
     //经过 回顾对比 getters 中的方法 和组件中的过滤器比较类似 因为过滤器和getters都没有修改原数据
